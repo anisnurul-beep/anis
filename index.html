@@ -12,15 +12,67 @@
       background-size: cover;
       color: #fff;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
-      overflow: hidden;
+      padding: 100px 20px 20px; /* extra padding top utk elak overlap header */
+      overflow-x: hidden;
       transition: background 0.6s, color 0.6s;
       position: relative;
     }
 
+    /* ===== HEADER ===== */
+    header {
+      width: 100%;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb, #3b82f6);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      animation: fadeDown 0.6s ease;
+    }
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    header nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #f1f5f9;
+      font-weight: 500;
+      transition: color 0.3s, transform 0.2s;
+    }
+    header nav a:hover {
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .theme-toggle {
+      padding: 8px 14px;
+      margin-left: 25px;
+      border: none;
+      border-radius: 8px;
+      background: #6b7280;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .theme-toggle:hover {
+      background: #4b5563;
+      transform: translateY(-2px);
+    }
+    @keyframes fadeDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* ===== CONTAINER ===== */
     .container {
       max-width: 820px;
       width: 100%;
@@ -30,7 +82,6 @@
       border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-      position: relative;
       z-index: 1;
       animation: fadeIn 0.6s ease;
     }
@@ -87,6 +138,11 @@
       background-size: cover;
       color: #111;
     }
+    body.light header {
+      background: linear-gradient(135deg, #f59e0b, #fbbf24, #fde68a);
+      color: #111;
+    }
+    body.light nav a { color: #111; }
     body.light .container {
       background: rgba(255, 255, 255, 0.85);
       border: 1px solid rgba(0, 0, 0, 0.1);
@@ -101,13 +157,25 @@
   </style>
 </head>
 <body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">🔒 Cybersecurity Toolkit</div>
+    <nav>
+      <a href="#" onclick="backToMenu()">Home</a>
+      <a href="#passwordTool" onclick="showTool('password')">Password</a>
+      <a href="#phishingTool" onclick="showTool('phishing')">Phishing</a>
+      <a href="#incidentTool" onclick="showTool('incident')">Incident</a>
+      <button class="theme-toggle" onclick="toggleTheme()">Toggle Mode</button>
+    </nav>
+  </header>
+
+  <!-- MENU -->
   <div class="container" id="menu">
     <h1>Cybersecurity Toolkit</h1>
     <p>Select a tool to begin:</p>
     <button onclick="showTool('password')">Password Security Tool</button>
     <button onclick="showTool('phishing')">Phishing Awareness Checker</button>
     <button onclick="showTool('incident')">Incident Report Form</button>
-    <button onclick="toggleTheme()" style="margin-top:20px;background:#6b7280">Toggle Dark/Light Mode</button>
   </div>
 
   <!-- Password Tool -->
